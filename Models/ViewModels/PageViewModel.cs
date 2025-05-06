@@ -17,7 +17,7 @@ public class PageViewModel<T> : IPageViewModel<T> where T : SitePageData
     /// <summary>
     /// These will be fetched directly from Graph
     /// </summary>
-    public virtual IList<ArticleContract> Articles { get; set; }
+    public virtual IList<Image> Images { get; set; }
 
     public IContent Section { get; set; }
 }

@@ -35,25 +35,30 @@ public class DefaultPageController : PageControllerBase<SitePageData>
             graphQLClient.HttpClient.DefaultRequestHeaders.Authorization =
                 new("epi-single", "...");
 
-            var articleRequest = new GraphQLRequest
+            var graphRequest = new GraphQLRequest
             {
                 Query = """
                 {
-                    ArticleContract {
-                      items {
-                        Excerpt
+                  _Image(where: { _metadata: { displayName: { contains: ".gif" } } }) {
+                    items {
+                      ... on ImageMedia {
                         _metadata {
                           key
+                          displayName
+                          url {
+                            default
+                          }
                         }
                       }
                     }
+                  }
                 }
                 """
             };
-            var articleResult = await graphQLClient.SendQueryAsync<ArticleContractResponse>(articleRequest);
-            if (articleResult != null && articleResult.Data != null)
+            var graphResult = await graphQLClient.SendQueryAsync<ImageResponse>(graphRequest);
+            if (graphResult != null && graphResult.Data != null)
             {
-                productModel.Articles = articleResult.Data.ArticleContract.Items;
+                productModel.Images = graphResult.Data.Image.Items;
             }
         }
         return View($"~/Views/{currentPage.GetOriginalType().Name}/Index.cshtml", model);

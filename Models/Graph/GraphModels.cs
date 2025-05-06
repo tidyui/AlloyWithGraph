@@ -2,25 +2,31 @@
 
 namespace GraphTest.Models.Graph;
 
-public class MetaData
+public class ImageResponse
 {
-    public string Key { get; set; }
+    [JsonProperty(PropertyName = "_Image")]
+    public ImageResponseType Image { get; set; }
 }
 
-public class ArticleContractResponse
-{ 
-    public ArticleContractType ArticleContract { get; set; }
-}
-
-public class ArticleContractType
+public class ImageResponseType
 {
-    public List<ArticleContract> Items { get; set; }
+    public List<Image> Items { get; set; }
 }
 
-public class ArticleContract
+public class Image
 {
     [JsonProperty(PropertyName = "_metadata")]
-    public MetaData MetaData { get; set; }
+    public ImageMetaData MetaData { get; set; }
+}
 
-    public string Excerpt { get; set; }
+public class ImageMetaData
+{
+    public string Key { get; set; }
+    public string DisplayName { get; set; }
+    public ImageUrl Url { get; set; }
+}
+
+public class ImageUrl
+{
+    public string Default { get; set; }
 }

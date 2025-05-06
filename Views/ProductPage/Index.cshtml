@@ -6,15 +6,20 @@
     <h1 epi-property="@Model.CurrentPage.PageName">
         @Model.CurrentPage.PageName
     </h1>
-    @if (Model.Articles != null)
+    @if (Model.Images != null)
     {
-        <h2>Data directly from Graph</h2>
-        <ul>
-            @foreach (var article in Model.Articles)
+        <h3>GIF Images directly from Graph</h3>
+        <div class="row mt-4 mb-4">
+            @foreach (var image in Model.Images)
             {
-                <li>Key: @article.MetaData.Key Excerpt: @article.Excerpt</li>
+                <div class="col-4">
+                    <img src="@image.MetaData.Url.Default" class="img-fluid img-thumbnail" alt="...">
+                    <div class="text-sm-center">
+                        @image.MetaData.DisplayName
+                    </div>
+                </div>
             }
-        </ul>
+        </div>
     }
     <p class="lead" epi-property="@Model.CurrentPage.MetaDescription">@Model.CurrentPage.MetaDescription</p>
     <div class="clearfix" epi-property="@Model.CurrentPage.MainBody" />
